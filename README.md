@@ -8,7 +8,7 @@
 </div>
 
 ## ✨ Sobre o Projeto
-Um aplicativo web moderno desenvolvido durante o curso de React, implementando conceitos fundamentais como:
+Um aplicativo web moderno desenvolvido para ensinar React, implementando conceitos fundamentais como:
 
 - ⚛️ Componentização
 - 🔁 React Hooks
