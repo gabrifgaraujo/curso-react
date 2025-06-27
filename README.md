@@ -1,3 +1,54 @@
+# 🚀 Projeto do Curso React | ReactMastery
+
+<div align="start">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+</div>
+
+## ✨ Sobre o Projeto
+Um aplicativo web moderno desenvolvido para ensinar React, implementando conceitos fundamentais como:
+
+- ⚛️ Componentização
+- 🔁 React Hooks
+- 🌐 React Router
+- 🧩 APIs externas
+- 📱 Layout responsivo
+
+## 🛠️ Tecnologias Utilizadas
+| Ferramenta          | Descrição                                |
+|---------------------|------------------------------------------|
+| **React 18**        | Biblioteca principal para construção de UI |
+| **Vite**            | Build tool e servidor de desenvolvimento |
+| **React Router v6** | Navegação entre páginas                  |
+| **Styled Components**| Estilização com CSS-in-JS               |
+| **Axios**           | Requisições HTTP                         |
+| **ESLint**          | Padronização de código                   |
+
+## 📦 Instalação Local
+Siga estes passos para executar o projeto localmente:
+
+```bash
+# Clonar repositório
+git clone https://github.com/BlueBeagBB/curso-react.git
+
+# Acessar diretório
+cd nome-do-repositorio
+
+# Instalar dependências
+npm install
+
+# Iniciar servidor de desenvolvimento
+npm run dev
+```
+
+## 🌱 Próximos Passos
+- Adicionar internacionalização (i18n)
+- Implementar TypeScript
+- Criar versão PWA
+- Adicionar testes end-to-end
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
