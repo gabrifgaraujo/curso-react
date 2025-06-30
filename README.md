@@ -23,25 +23,6 @@ Um aplicativo web moderno desenvolvido para ensinar React, implementando conceit
 | **Vite**            | Build tool e servidor de desenvolvimento |
 | **React Router v6** | Navegação entre páginas                  |
 | **Styled Components**| Estilização com CSS-in-JS               |
-| **Axios**           | Requisições HTTP                         |
-| **ESLint**          | Padronização de código                   |
-
-## 📦 Instalação Local
-Siga estes passos para executar o projeto localmente:
-
-```bash
-# Clonar repositório
-git clone https://github.com/BlueBeagBB/curso-react.git
-
-# Acessar diretório
-cd nome-do-repositorio
-
-# Instalar dependências
-npm install
-
-# Iniciar servidor de desenvolvimento
-npm run dev
-```
 
 ## 🌱 Próximos Passos
 - Adicionar internacionalização (i18n)
