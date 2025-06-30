@@ -22,33 +22,33 @@ import Sobre from './components/Sobre';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="min-h-screen bg-gray-900 text-white">
         <Header />
         <main className="container mx-auto py-8 px-4">
           <Routes>
-            <Route path="/curso-react" element={<Home />} />
-            <Route path="/curso-react/exp" element={<Exp />} />
-            <Route path="/curso-react/intro" element={<Intro />} />
-            <Route path="/curso-react/summary" element={<Summary />} />
-            <Route path="/curso-react/sobre" element={<Sobre />} />
-            <Route path="/curso-react/fundamentos" element={<Fundamentos />} />
-            <Route path="/curso-react/hooks" element={<Hooks />} />
-            <Route path="/curso-react/roteamento" element={<Roteamento />} />
-            <Route path="/curso-react/gerenciamento-estado" element={<GerenciamentoEstado />} />
-            <Route path="/curso-react/consumo-api" element={<ConsumoAPI />} />
-            <Route path="/curso-react/estilizacao" element={<Estilizacao />} />
-            <Route path="/curso-react/testes" element={<Testes />} />
-            <Route path="/curso-react/vite" element={<Vite />} />
-            <Route path="/curso-react/projeto-pratico" element={<ProjetoPratico />} />
-            <Route path="/curso-react/dicas" element={<Dicas />} />
-            <Route path="/curso-react/proximospassos" element={<ProximosPassos />} />
-            <Route path="/curso-react/requisitos" element={<Requisitos />} />
+            <Route path="/curso-react/" element={<Home />} />
+            <Route path="/curso-react/curso-react/exp" element={<Exp />} />
+            <Route path="/curso-react/curso-react/intro" element={<Intro />} />
+            <Route path="/curso-react/curso-react/summary" element={<Summary />} />
+            <Route path="/curso-react/curso-react/sobre" element={<Sobre />} />
+            <Route path="/curso-react/curso-react/fundamentos" element={<Fundamentos />} />
+            <Route path="/curso-react/curso-react/hooks" element={<Hooks />} />
+            <Route path="/curso-react/curso-react/roteamento" element={<Roteamento />} />
+            <Route path="/curso-react/curso-react/gerenciamento-estado" element={<GerenciamentoEstado />} />
+            <Route path="/curso-react/curso-react/consumo-api" element={<ConsumoAPI />} />
+            <Route path="/curso-react/curso-react/estilizacao" element={<Estilizacao />} />
+            <Route path="/curso-react/curso-react/testes" element={<Testes />} />
+            <Route path="/curso-react/curso-react/vite" element={<Vite />} />
+            <Route path="/curso-react/curso-react/projeto-pratico" element={<ProjetoPratico />} />
+            <Route path="/curso-react/curso-react/dicas" element={<Dicas />} />
+            <Route path="/curso-react/curso-react/proximospassos" element={<ProximosPassos />} />
+            <Route path="/curso-react/curso-react/requisitos" element={<Requisitos />} />
             <Route path="*" element={<div className="text-center text-red-500">Página não encontrada</div>} />
           </Routes>
         </main>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
