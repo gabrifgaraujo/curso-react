@@ -27,7 +27,7 @@ function App() {
         <Header />
         <main className="container mx-auto py-8 px-4">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/curso-react" element={<Home />} />
             <Route path="/exp" element={<Exp />} />
             <Route path="/intro" element={<Intro />} />
             <Route path="/summary" element={<Summary />} />
