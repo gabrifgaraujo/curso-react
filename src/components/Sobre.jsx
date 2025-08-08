@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const GITHUB_USERNAME = 'BlueBeagBB'; 
+const GITHUB_USERNAME = 'gabrifgaraujo'; 
 
 const Sobre = () => {
   const [userData, setUserData] = useState(null);
