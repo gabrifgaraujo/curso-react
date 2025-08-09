@@ -5,7 +5,7 @@ import Fundamentos from './Fundamentos';
 import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 
-const Intro = () => {
+const Intro: React.FC = () => {
   return (
     <>
       <div className="flex gap-3 mt-15 mb-0">

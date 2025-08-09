@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import vite from '../assets/09_desenvolvendo_e_fazendo_build_com_vite.md';
 
-const Vite = () => {
+const Vite: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

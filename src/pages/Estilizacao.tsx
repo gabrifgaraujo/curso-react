@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import estilizacao from "../assets/07_estilizacao.md";
 
-const Estilizacao = () => {
+const Estilizacao: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Exp from './pages/Exp';
@@ -21,8 +22,18 @@ import Requisitos from './pages/Requisitos';
 import Sobre from './components/Sobre';
 
 function App() {
+  function SaveLastRoute() {
+    const location = useLocation();
+
+    useEffect(() => {
+      localStorage.setItem('lastRoute', location.pathname);
+    }, [location]);
+
+    return null;
+  }
   return (
     <BrowserRouter basename='/curso-react'>
+      <SaveLastRoute /> 
       <div className="min-h-screen bg-gray-900 text-white">
         <Header />
         <main className="container mx-auto py-8 px-4">

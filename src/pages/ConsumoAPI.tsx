@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import consumoAPI from "../assets/06_consumindo_apis.md";
 
-const ConsumoAPI = () => {
+const ConsumoAPI: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

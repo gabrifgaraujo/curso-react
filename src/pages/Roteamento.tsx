@@ -3,7 +3,7 @@ import Markdown from "../components/Markdown";
 import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 
-const Roteamento = () => {
+const Roteamento: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

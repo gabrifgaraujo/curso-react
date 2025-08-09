@@ -1,10 +1,12 @@
 import React from 'react';
-import Exp from '../pages/Exp';
+import Exp from './Exp';
 import GoButton from "../components/GoButton";
+import ContinueButton from "../components/ContinueButton";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="block flex-col items-center">
+      <ContinueButton />
       <Exp />
       <GoButton goRoute="/intro" goText="Começar Curso!"/>
     </div>

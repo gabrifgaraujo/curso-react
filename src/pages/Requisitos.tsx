@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import requisitos from '../assets/Requisitos.md';
 
-const Requisitos = () => {
+const Requisitos: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

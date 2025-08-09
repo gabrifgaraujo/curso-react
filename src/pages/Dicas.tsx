@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import dicas from '../assets/11_dicas_vaga_junior.md';
 
-const Dicas = () => {
+const Dicas: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import projeto from '../assets/10_projeto_pratico_todolist.md';
 
-const ProjetoPratico = () => {
+const ProjetoPratico: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">

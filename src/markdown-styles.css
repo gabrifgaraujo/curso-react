@@ -2,7 +2,7 @@
 
 /* Estilos escopados apenas para conteúdo Markdown */
 .markdown-content {
-  margin-bottom: -4rem;
+  margin-bottom: -6rem;
 }
 
 /* Tipografia */
@@ -88,11 +88,19 @@
   color: #f48fb1;
 }
 
+.markdown-content pre,
+.markdown-content code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
 /* Links */
 .markdown-content a {
   color: #64b5f6;
   text-decoration: none;
   border-bottom: 1px dashed #64b5f6;
+  overflow-wrap: break-word;
   transition: all 0.3s ease;
 }
 
@@ -234,6 +242,14 @@
   }
 }
 
+@media (max-width: 600px) {
+  .markdown-content ul li::before,
+  .markdown-content ol li::before {
+    position: static;
+    margin-left: 0;
+  }
+}
+
 /* Blocos de código */
 .markdown-content pre {
   background-color: #1e1e1e;
@@ -297,6 +313,7 @@
 @media (max-width: 768px) {
   .markdown-content {
     padding: 1.5rem;
+    
   }
   
   .markdown-content h1 { 

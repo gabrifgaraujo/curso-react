@@ -3,7 +3,7 @@ import GoButton from "../components/GoButton";
 import BackButton from "../components/BackButton";
 import gerencia from "../assets/05_gerenciamento_estado_avancado.md";
 
-const GerenciamentoEstado = () => {
+const GerenciamentoEstado: React.FC = () => {
     return ( 
         <>
         <div className="flex gap-3 mt-15 mb-0">
