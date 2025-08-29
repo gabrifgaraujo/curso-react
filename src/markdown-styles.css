@@ -79,20 +79,30 @@
   color: #757575;
 }
 
-.markdown-content code {
-  font-family: 'Fira Code', 'Consolas', monospace;
-  background-color: #1e1e1e;
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #f48fb1;
+/* Estilo para blocos de código */
+.markdown-content pre {
+  background-color: #1e1e1e; /* fundo estilo editor */
+  color: #d4d4d4; /* cor padrão de texto */
+  padding: 1rem 1.25rem; /* espaçamento interno */
+  border-radius: 0.5rem; /* cantos arredondados */
+  overflow-x: auto; /* rolagem horizontal se o código for muito grande */
+  margin: 1.5rem 0; /* espaçamento externo */
+  line-height: 1.6; /* altura de linha confortável */
+  font-size: 0.95rem; /* tamanho de fonte levemente reduzido */
+  font-family: "Fira Code", "JetBrains Mono", monospace; /* fonte estilo editor */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* leve sombra */
 }
 
-.markdown-content pre,
+/* Estilo para inline code (dentro de frases) */
 .markdown-content code {
-  white-space: pre-wrap;
-  word-break: break-word;
+  background-color: rgba(30, 30, 30, 0.85);
+  color: #ffb86c;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3rem;
+  font-size: 0.9em;
+  font-family: "Fira Code", "JetBrains Mono", monospace;
 }
+
 
 
 /* Links */
@@ -248,27 +258,6 @@
     position: static;
     margin-left: 0;
   }
-}
-
-/* Blocos de código */
-.markdown-content pre {
-  background-color: #1e1e1e;
-  border-radius: 8px;
-  padding: 1.3rem;
-  margin: 1.8rem 0;
-  overflow: auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  border: 1px solid #263238;
-}
-
-.markdown-content pre code {
-  font-family: 'Fira Code', 'Consolas', monospace;
-  background: none;
-  padding: 0;
-  color: #dcdcdc;
-  font-size: 0.95rem;
-  text-shadow: none;
-  line-height: 1.6;
 }
 
 /* Detalhes/Sumário */

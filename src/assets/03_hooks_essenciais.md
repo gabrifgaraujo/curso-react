@@ -1,53 +1,47 @@
-## 3. Hooks Essenciais do React
+## 3. Hooks Essenciais do React com TypeScript
 
-Os Hooks são uma adição relativamente nova ao React (introduzidos na versão 16.8) que permitem que você use estado e outros recursos do React sem escrever uma classe. Eles revolucionaram a forma como os componentes funcionais são escritos, tornando-os mais poderosos e fáceis de gerenciar.
+Os Hooks são uma adição relativamente nova ao React (introduzidos na versão 16.8) que permitem que você use estado e outros recursos do React sem escrever uma classe. Eles revolucionaram a forma como os componentes funcionais são escritos, tornando-os mais poderosos e fáceis de gerenciar. Com TypeScript, os Hooks ganham ainda mais poder através da tipagem estática.
 
-### `useState`: Gerenciando Estado
+### `useState`: Gerenciando Estado com Tipagem
 
-Já introduzimos o `useState` na seção de Fundamentos, mas vamos revisitar e aprofundar um pouco.
+Já introduzimos o `useState` na seção de Fundamentos, mas vamos revisitar e aprofundar um pouco, agora com foco na tipagem.
 
 *   **Propósito:** Adicionar estado local a componentes funcionais.
-*   **Sintaxe:** `const [estado, setEstado] = useState(valorInicial);`
+*   **Sintaxe:** `const [estado, setEstado] = useState<TipoDoEstado>(valorInicial);`
     *   Retorna um array com dois elementos: o valor atual do estado e uma função para atualizá-lo.
     *   `valorInicial` é o valor que o estado terá na primeira renderização. Pode ser um valor direto ou uma função que retorna o valor inicial (útil para cálculos iniciais caros).
 
 **Exemplo Detalhado:**
 
-```jsx
+```tsx
 import React, { useState } from 'react';
 
-function FormularioSimples() {
+function FormularioSimples(): JSX.Element {
   // Estado para o valor do input de texto
-  const [nome, setNome] = useState('');
+  const [nome, setNome] = useState<string>('');
   // Estado para controlar se o formulário foi submetido
-  const [submetido, setSubmetido] = useState(false);
+  const [submetido, setSubmetido] = useState<boolean>(false);
 
-  const handleChangeNome = (evento) => {
+  const handleChangeNome = (evento: React.ChangeEvent<HTMLInputElement>): void => {
     setNome(evento.target.value);
     if (submetido) {
-      setSubmetido(false); // Reseta o status de submissão se o usuário começar a digitar novamente
+      setSubmetido(false); 
     }
   };
 
-  const handleSubmit = (evento) => {
-    evento.preventDefault(); // Previne o comportamento padrão do formulário (recarregar a página)
-    if (nome.trim() === '') {
-      alert('Por favor, insira um nome.');
-      return;
-    }
+  const handleSubmit = (evento: React.FormEvent<HTMLFormElement>): void => {
+    evento.preventDefault();
     setSubmetido(true);
-    // Aqui você normalmente enviaria os dados para um servidor
-    console.log('Nome submetido:', nome);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="nomeInput">Nome:</label>
+        <label htmlFor="nome">Nome:</label>
         <input
+          id="nome"
           type="text"
-          id="nomeInput"
-          value={nome} // Controla o valor do input com o estado
+          value={nome}
           onChange={handleChangeNome}
         />
       </div>
@@ -64,12 +58,65 @@ export default FormularioSimples;
 
 **Atualizando Estado Baseado no Estado Anterior:** Se o novo estado depende do valor anterior, use a forma funcional de `setEstado` para garantir que você está trabalhando com o valor mais recente.
 
-```jsx
+```tsx
 // Exemplo de contador, forma segura de incrementar
-const [contador, setContador] = useState(0);
+const [contador, setContador] = useState<number>(0);
 
-const incrementar = () => {
+const incrementar = (): void => {
   setContador(prevContador => prevContador + 1);
+};
+```
+
+**Tipando Estados Complexos:**
+
+```tsx
+// Definindo uma interface para o estado
+interface Usuario {
+  id: number;
+  nome: string;
+  email: string;
+  perfis: string[];
+}
+
+// Usando a interface com useState
+const [usuario, setUsuario] = useState<Usuario | null>(null);
+
+// Para objetos com propriedades opcionais
+interface Formulario {
+  nome: string;
+  email: string;
+  telefone?: string; // Propriedade opcional
+  preferencias: {
+    receberEmails: boolean;
+    tema: 'claro' | 'escuro'; // Union type
+  };
+}
+
+const [formulario, setFormulario] = useState<Formulario>({
+  nome: '',
+  email: '',
+  preferencias: {
+    receberEmails: true,
+    tema: 'claro'
+  }
+});
+
+// Atualizando estado complexo de forma imutável
+const atualizarNome = (novoNome: string): void => {
+  setFormulario(prev => ({
+    ...prev,
+    nome: novoNome
+  }));
+};
+
+const alternarTema = (): void => {
+  setFormulario(prev => ({
+    ...prev,
+    preferencias: {
+      ...prev.preferencias,
+      tema: prev.preferencias.tema === 'claro' ? 'escuro' : 'claro'
+    }
+  }));
 };
 ```
 
@@ -89,7 +136,7 @@ O Hook `useEffect` permite que você execute "efeitos colaterais" (side effects)
 **Comportamento do Array de Dependências:**
 
 1.  **Sem array de dependências (omitido):** O efeito roda *após cada renderização* do componente. Use com cuidado, pois pode levar a loops infinitos se o efeito também causar uma re-renderização.
-    ```jsx
+    ```tsx
     useEffect(() => {
       console.log('Componente renderizou ou atualizou');
       // CUIDADO: Se este efeito mudar um estado que causa re-renderização, pode criar um loop.
@@ -97,7 +144,7 @@ O Hook `useEffect` permite que você execute "efeitos colaterais" (side effects)
     ```
 
 2.  **Array de dependências vazio (`[]`):** O efeito roda *apenas uma vez*, após a primeira renderização (montagem do componente). É ideal para buscar dados iniciais ou configurar inscrições que não dependem de props ou estado.
-    ```jsx
+    ```tsx
     useEffect(() => {
       console.log('Componente montou! Buscando dados...');
       // fetch('/api/dados').then(...);
@@ -105,8 +152,8 @@ O Hook `useEffect` permite que você execute "efeitos colaterais" (side effects)
     ```
 
 3.  **Array com dependências (`[prop1, estado1]`):** O efeito roda após a primeira renderização e sempre que *qualquer uma* das dependências listadas mudar de valor.
-    ```jsx
-    const [userId, setUserId] = useState(1);
+    ```tsx
+    const [userId, setUserId] = useState<number>(1);
 
     useEffect(() => {
       console.log(`Buscando dados para o usuário ${userId}`);
@@ -120,7 +167,7 @@ Alguns efeitos precisam ser "limpos" quando o componente é desmontado ou antes 
 
 Para isso, a função passada para `useEffect` pode retornar outra função. Essa função de retorno será executada pelo React antes de desmontar o componente ou antes de re-executar o efeito devido a uma mudança nas dependências.
 
-```jsx
+```tsx
 useEffect(() => {
   const timerId = setInterval(() => {
     console.log('Tick');
@@ -134,37 +181,57 @@ useEffect(() => {
 }, []); // Roda na montagem, limpa na desmontagem
 ```
 
-**Exemplo: Buscando Dados com `useEffect`**
+**Exemplo: Buscando Dados com `useEffect` e TypeScript**
 
-```jsx
+```tsx
 import React, { useState, useEffect } from 'react';
 
-function PerfilUsuario({ idUsuario }) {
-  const [usuario, setUsuario] = useState(null);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState(null);
+// Definindo a interface para os dados do usuário
+interface Usuario {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+interface PerfilUsuarioProps {
+  idUsuario: number;
+}
+
+function PerfilUsuario({ idUsuario }: PerfilUsuarioProps): JSX.Element {
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [carregando, setCarregando] = useState<boolean>(true);
+  const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    setCarregando(true);
-    setErro(null);
-    fetch(`https://jsonplaceholder.typicode.com/users/${idUsuario}`)
-      .then(response => {
+    // Função assíncrona para buscar dados
+    const buscarDados = async (): Promise<void> => {
+      try {
+        setCarregando(true);
+        setErro(null);
+        
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${idUsuario}`);
+        
         if (!response.ok) {
           throw new Error('Falha ao buscar dados do usuário');
         }
-        return response.json();
-      })
-      .then(dados => {
+        
+        const dados: Usuario = await response.json();
         setUsuario(dados);
+      } catch (error) {
+        setErro(error instanceof Error ? error.message : 'Erro desconhecido');
+      } finally {
         setCarregando(false);
-      })
-      .catch(error => {
-        setErro(error.message);
-        setCarregando(false);
-      });
+      }
+    };
+
+    buscarDados();
 
     // Se idUsuario pudesse mudar e quiséssemos cancelar a requisição anterior,
-    // precisaríamos de uma lógica de limpeza mais complexa (ex: AbortController)
+    // poderíamos usar AbortController
+    return () => {
+      // Limpeza se necessário
+    };
   }, [idUsuario]); // Re-executa se idUsuario mudar
 
   if (carregando) return <p>Carregando perfil...</p>;
@@ -189,35 +256,53 @@ O Hook `useContext` permite que você acesse o valor de um Contexto React. Conte
 
 É útil para dados que podem ser considerados "globais" para uma árvore de componentes React, como o usuário autenticado atual, tema (claro/escuro) ou configurações de idioma.
 
-**Como Usar `useContext`:**
+**Como Usar `useContext` com TypeScript:**
 
-1.  **Criar um Contexto:** Use `React.createContext()`.
-    ```javascript
-    // temaContext.js
-    import React from 'react';
+1.  **Criar um Contexto com Tipo:**
+    ```tsx
+    // temaContext.ts
+    import React, { createContext } from 'react';
 
-    // Cria um contexto com um valor padrão (opcional)
-    const TemaContext = React.createContext('claro'); // 'claro' é o valor padrão
+    // Definindo a interface para o valor do contexto
+    export interface TemaContextType {
+      tema: 'claro' | 'escuro';
+      alternarTema: () => void;
+    }
+
+    // Valor padrão com tipagem
+    const valorPadrao: TemaContextType = {
+      tema: 'claro',
+      alternarTema: () => {} // Função vazia como padrão
+    };
+
+    // Cria um contexto com o valor padrão tipado
+    const TemaContext = createContext<TemaContextType>(valorPadrao);
 
     export default TemaContext;
     ```
 
-2.  **Prover o Contexto:** Use o componente `Context.Provider` para envolver a parte da sua árvore de componentes que precisa ter acesso ao contexto. O `Provider` aceita uma prop `value` que será passada para os componentes consumidores.
-    ```jsx
-    // App.js
+2.  **Prover o Contexto:**
+    ```tsx
+    // App.tsx
     import React, { useState } from 'react';
-    import TemaContext from './temaContext';
+    import TemaContext, { TemaContextType } from './temaContext';
     import Painel from './Painel';
 
-    function App() {
-      const [tema, setTema] = useState('claro');
+    function App(): JSX.Element {
+      const [tema, setTema] = useState<'claro' | 'escuro'>('claro');
 
-      const alternarTema = () => {
+      const alternarTema = (): void => {
         setTema(temaAtual => (temaAtual === 'claro' ? 'escuro' : 'claro'));
       };
 
+      // Criando o valor do contexto
+      const valorContexto: TemaContextType = {
+        tema,
+        alternarTema
+      };
+
       return (
-        <TemaContext.Provider value={{ tema, alternarTema }}>
+        <TemaContext.Provider value={valorContexto}>
           <div>
             <h1>App com Contexto de Tema</h1>
             <Painel />
@@ -230,16 +315,17 @@ O Hook `useContext` permite que você acesse o valor de um Contexto React. Conte
     export default App;
     ```
 
-3.  **Consumir o Contexto:** Em um componente funcional filho, use o Hook `useContext` para ler o valor atual do contexto.
-    ```jsx
-    // Painel.js
+3.  **Consumir o Contexto:**
+    ```tsx
+    // Painel.tsx
     import React, { useContext } from 'react';
-    import TemaContext from './temaContext';
+    import TemaContext, { TemaContextType } from './temaContext';
 
-    function Painel() {
-      const { tema, alternarTema } = useContext(TemaContext);
+    function Painel(): JSX.Element {
+      // useContext com o tipo correto
+      const { tema, alternarTema } = useContext<TemaContextType>(TemaContext);
 
-      const estiloPainel = {
+      const estiloPainel: React.CSSProperties = {
         backgroundColor: tema === 'claro' ? '#eee' : '#333',
         color: tema === 'claro' ? '#333' : '#eee',
         padding: '20px',
@@ -250,7 +336,7 @@ O Hook `useContext` permite que você acesse o valor de um Contexto React. Conte
         <div style={estiloPainel}>
           <p>O tema atual é: {tema}</p>
           <p>Este painel usa o tema do contexto.</p>
-          {/* O botão para alternar o tema está no App.js, mas poderia ser chamado daqui também */}
+          <button onClick={alternarTema}>Alternar Tema (do Painel)</button>
         </div>
       );
     }
@@ -270,38 +356,49 @@ Além de `useState`, `useEffect` e `useContext`, existem outros Hooks embutidos 
 
 *   **`useRef`:**
     *   **Propósito Principal 1: Acessar Elementos DOM Diretamente.** Permite criar uma referência a um elemento DOM ou a um componente React.
-        ```jsx
+        ```tsx
         import React, { useRef, useEffect } from 'react';
 
-        function CampoDeFoco() {
-          const inputRef = useRef(null);
+        function CampoDeFoco(): JSX.Element {
+          // Tipando a referência para um elemento input
+          const inputRef = useRef<HTMLInputElement>(null);
 
           useEffect(() => {
             // Foca o input quando o componente monta
-            inputRef.current.focus();
+            // O operador '?' garante que só acessamos .focus() se inputRef.current não for null
+            inputRef.current?.focus();
           }, []);
 
           return <input ref={inputRef} type="text" />;
         }
         ```
     *   **Propósito Principal 2: Manter Valores Mutáveis que Não Causam Re-renderização.** `useRef` retorna um objeto mutável com uma propriedade `.current`. Alterar `.current` não dispara uma nova renderização. Isso é útil para armazenar valores que você quer persistir entre renderizações sem causar o ciclo de vida de atualização (ex: IDs de timers, conexões de socket).
-        ```jsx
+        ```tsx
         import React, { useRef, useState, useEffect } from 'react';
 
-        function Cronometro() {
-          const [segundos, setSegundos] = useState(0);
-          const intervalRef = useRef(null);
+        function Cronometro(): JSX.Element {
+          const [segundos, setSegundos] = useState<number>(0);
+          // Tipando a referência para um NodeJS.Timeout
+          const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
           useEffect(() => {
             intervalRef.current = setInterval(() => {
               setSegundos(s => s + 1);
             }, 1000);
 
-            return () => clearInterval(intervalRef.current);
+            return () => {
+              // Verificação de segurança antes de limpar
+              if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+              }
+            };
           }, []);
 
-          const pararCronometro = () => {
-            clearInterval(intervalRef.current);
+          const pararCronometro = (): void => {
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+            }
           };
 
           return (
@@ -315,15 +412,15 @@ Além de `useState`, `useEffect` e `useContext`, existem outros Hooks embutidos 
 
 *   **`useMemo`:**
     *   **Propósito:** Memorizar (cachear) o resultado de um cálculo caro para que ele não seja re-executado em cada renderização, a menos que suas dependências mudem.
-    *   **Sintaxe:** `const valorMemorizado = useMemo(() => calcularValor(a, b), [a, b]);`
+    *   **Sintaxe:** `const valorMemorizado = useMemo<TipoRetorno>(() => calcularValor(a, b), [a, b]);`
     *   A função `calcularValor(a, b)` só será re-executada se `a` ou `b` mudarem.
     *   Útil para otimizar performance quando você tem cálculos que consomem muito processamento dentro de um componente que renderiza frequentemente.
 
-    ```jsx
+    ```tsx
     import React, { useState, useMemo } from 'react';
 
-    function CalculoPesadoComponente({ numero }) {
-      const calcularFatorial = (n) => {
+    function CalculoPesadoComponente({ numero }: { numero: number }): JSX.Element {
+      const calcularFatorial = (n: number): number => {
         console.log('Calculando fatorial de', n);
         if (n <= 1) return 1;
         let resultado = 1;
@@ -333,11 +430,11 @@ Além de `useState`, `useEffect` e `useContext`, existem outros Hooks embutidos 
         return resultado;
       };
 
-      // Memoriza o resultado do fatorial
+      // Memoriza o resultado do fatorial com tipo explícito
       // Só recalcula se 'numero' mudar
-      const fatorial = useMemo(() => calcularFatorial(numero), [numero]);
+      const fatorial = useMemo<number>(() => calcularFatorial(numero), [numero]);
 
-      const [contador, setContador] = useState(0);
+      const [contador, setContador] = useState<number>(0);
 
       return (
         <div>
@@ -353,30 +450,36 @@ Além de `useState`, `useEffect` e `useContext`, existem outros Hooks embutidos 
 
 *   **`useCallback`:**
     *   **Propósito:** Memorizar uma *função* para que ela não seja recriada em cada renderização, a menos que suas dependências mudem.
-    *   **Sintaxe:** `const funcaoMemorizada = useCallback(() => { fazerAlgo(a, b); }, [a, b]);`
+    *   **Sintaxe:** `const funcaoMemorizada = useCallback<(arg: TipoArg) => TipoRetorno>((arg) => { fazerAlgo(arg); }, [dependencias]);`
     *   É particularmente útil quando você passa callbacks para componentes filhos otimizados (que usam `React.memo` ou `shouldComponentUpdate`) que dependem da igualdade referencial para evitar re-renderizações desnecessárias.
 
-    ```jsx
+    ```tsx
     import React, { useState, useCallback } from 'react';
 
+    // Definindo o tipo das props do botão
+    interface BotaoProps {
+      onClick: () => void;
+      texto: string;
+    }
+
     // Suponha que Botao seja um componente otimizado com React.memo
-    const Botao = React.memo(({ onClick, texto }) => {
+    const Botao = React.memo(({ onClick, texto }: BotaoProps): JSX.Element => {
       console.log('Botão renderizou:', texto);
       return <button onClick={onClick}>{texto}</button>;
     });
 
-    function ContadorComCallback() {
-      const [contador1, setContador1] = useState(0);
-      const [contador2, setContador2] = useState(0);
+    function ContadorComCallback(): JSX.Element {
+      const [contador1, setContador1] = useState<number>(0);
+      const [contador2, setContador2] = useState<number>(0);
 
       // Sem useCallback, esta função seria recriada em cada renderização,
       // fazendo com que o Botao para contador1 re-renderizasse desnecessariamente
       // quando apenas contador2 mudasse.
-      const incrementarContador1 = useCallback(() => {
+      const incrementarContador1 = useCallback((): void => {
         setContador1(c => c + 1);
       }, []); // Dependência vazia, a função nunca muda
 
-      const incrementarContador2 = useCallback(() => {
+      const incrementarContador2 = useCallback((): void => {
         setContador2(c => c + 1);
       }, []);
 
@@ -394,3 +497,160 @@ Além de `useState`, `useEffect` e `useContext`, existem outros Hooks embutidos 
     *   `useMemo` retorna um *valor* memorizado.
     *   `useCallback` retorna uma *função* memorizada. `useCallback(fn, deps)` é equivalente a `useMemo(() => fn, deps)`.
 
+### Criando Seus Próprios Hooks (Custom Hooks)
+
+Custom Hooks são uma convenção poderosa que permite extrair lógica de componentes reutilizável em funções TypeScript.
+
+*   **Convenção de Nomenclatura:** Nomes de Custom Hooks devem começar com `use` (ex: `useFormInput`, `useFetchData`).
+*   **O que eles são:** São funções TypeScript que podem chamar outros Hooks (como `useState`, `useEffect`, etc.).
+*   **Por que usá-los?**
+    *   **Reutilização de Lógica:** Evita duplicação de código entre componentes.
+    *   **Abstração:** Esconde a complexidade da lógica de estado ou efeitos colaterais.
+    *   **Organização:** Mantém os componentes mais limpos e focados na UI.
+
+**Exemplo: Um Custom Hook `useFormInput` com TypeScript**
+
+```tsx
+import { useState, ChangeEvent } from 'react';
+
+// Definindo o tipo de retorno do hook
+interface UseFormInputReturn {
+  valor: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  reset: () => void;
+}
+
+function useFormInput(valorInicial: string): UseFormInputReturn {
+  const [valor, setValor] = useState<string>(valorInicial);
+
+  function handleChange(evento: ChangeEvent<HTMLInputElement>): void {
+    setValor(evento.target.value);
+  }
+
+  function reset(): void {
+    setValor(valorInicial);
+  }
+
+  return {
+    valor,
+    onChange: handleChange,
+    reset
+  };
+}
+
+// Como usar no componente:
+function MeuFormularioCustomHook(): JSX.Element {
+  const nomeInput = useFormInput('');
+  const emailInput = useFormInput('');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    alert(`Nome: ${nomeInput.valor}, Email: ${emailInput.valor}`);
+    
+    // Resetando os campos após o envio
+    nomeInput.reset();
+    emailInput.reset();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="nome">Nome: </label>
+        <input id="nome" type="text" {...nomeInput} />
+      </div>
+      <div>
+        <label htmlFor="email">Email: </label>
+        <input id="email" type="email" {...emailInput} />
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  );
+}
+```
+
+**Exemplo: Custom Hook para Buscar Dados**
+
+```tsx
+import { useState, useEffect } from 'react';
+
+// Definindo tipos genéricos para o hook
+interface UseFetchState<T> {
+  data: T | null;
+  loading: boolean;
+  error: Error | null;
+}
+
+// Hook genérico que pode buscar qualquer tipo de dados
+function useFetch<T>(url: string): UseFetchState<T> {
+  const [state, setState] = useState<UseFetchState<T>>({
+    data: null,
+    loading: true,
+    error: null
+  });
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    const fetchData = async (): Promise<void> => {
+      setState(prev => ({ ...prev, loading: true }));
+      
+      try {
+        const response = await fetch(url, { signal });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setState({ data, loading: false, error: null });
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          console.log('Fetch abortado');
+        } else {
+          setState({ data: null, loading: false, error: error instanceof Error ? error : new Error(String(error)) });
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [url]);
+
+  return state;
+}
+
+// Uso do hook com interface específica
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  userId: number;
+}
+
+function PostComponent(): JSX.Element {
+  const { data, loading, error } = useFetch<Post[]>('https://jsonplaceholder.typicode.com/posts');
+
+  if (loading) return <p>Carregando posts...</p>;
+  if (error) return <p>Erro: {error.message}</p>;
+  if (!data) return <p>Nenhum dado encontrado</p>;
+
+  return (
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {data.map(post => (
+          <li key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+Dominar esses Hooks essenciais e entender como criar seus próprios Custom Hooks com TypeScript é fundamental para escrever código React moderno, eficiente, reutilizável e com segurança de tipos.

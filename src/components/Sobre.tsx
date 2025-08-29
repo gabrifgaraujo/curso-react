@@ -33,6 +33,10 @@ const Sobre: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth'}); //faz subir pro topo a pagina
+  }
+
   useEffect(() => {
     let mounted = true;
 

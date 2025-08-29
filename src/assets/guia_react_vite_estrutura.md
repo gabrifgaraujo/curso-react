@@ -57,5 +57,3 @@
 
 ---
 
-(Conteúdo de cada seção será desenvolvido aqui)
-
