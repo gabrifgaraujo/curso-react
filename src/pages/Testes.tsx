@@ -8,14 +8,14 @@ const Testes: React.FC = () => {
         <>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/estilizacao" backText="Voltar"/>
-            <GoButton goRoute="/vite" goText="Próximo: Utilizando Vite!"/>
+            <GoButton goRoute="/vite" goText="Próximo: Utilizando Vite"/>
         </div>
         <div className="flex flex-col items-center">
             <Markdown content={testes} />
         </div>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/estilizacao" backText="Voltar"/>
-            <GoButton goRoute="/vite" goText="Próximo: Utilizando Vite!"/>
+            <GoButton goRoute="/vite" goText="Próximo: Utilizando Vite"/>
         </div>
         </>
      );

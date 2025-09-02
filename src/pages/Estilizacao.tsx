@@ -8,14 +8,14 @@ const Estilizacao: React.FC = () => {
         <>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/consumo-api" backText="Voltar"/>
-            <GoButton goRoute="/testes" goText="Próximo: Testando Aplicações!"/>
+            <GoButton goRoute="/testes" goText="Próximo: Testando Aplicações"/>
         </div>
         <div className="flex flex-col items-center">
             <Markdown content={estilizacao} />
         </div>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/consumo-api" backText="Voltar"/>
-            <GoButton goRoute="/testes" goText="Próximo: Testando Aplicações!"/>
+            <GoButton goRoute="/testes" goText="Próximo: Testando Aplicações"/>
         </div>
         </>
      );

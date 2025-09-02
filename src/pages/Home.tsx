@@ -8,7 +8,7 @@ const Home: React.FC = () => {
     <div className="block flex-col items-center">
       <ContinueButton />
       <Exp />
-      <GoButton goRoute="/intro" goText="Começar Curso!"/>
+      <GoButton goRoute="/intro" goText="Começar Curso"/>
     </div>
   );
 };

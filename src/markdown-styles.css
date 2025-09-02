@@ -3,6 +3,9 @@
 /* Estilos escopados apenas para conteúdo Markdown */
 .markdown-content {
   margin-bottom: -6rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Tipografia */
@@ -257,6 +260,10 @@
   .markdown-content ol li::before {
     position: static;
     margin-left: 0;
+  }
+
+  .markdown-content pre code {
+    width: 400px;
   }
 }
 

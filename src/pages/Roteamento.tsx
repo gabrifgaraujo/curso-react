@@ -8,14 +8,14 @@ const Roteamento: React.FC = () => {
         <>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/hooks" backText="Voltar"/>
-            <GoButton goRoute="/gerenciamento-estado" goText="Próximo: Gerenciamento de Estado Avançado!"/>
+            <GoButton goRoute="/gerenciamento-estado" goText="Próximo: Gerenciamento de Estado"/>
         </div>
         <div className="flex flex-col items-center">
             <Markdown content={roteamento} />
         </div>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/hooks" backText="Voltar"/>
-            <GoButton goRoute="/gerenciamento-estado" goText="Próximo: Gerenciamento de Estado Avançado!"/>
+            <GoButton goRoute="/gerenciamento-estado" goText="Próximo: Gerenciamento de Estado"/>
         </div>          
         </>
      );

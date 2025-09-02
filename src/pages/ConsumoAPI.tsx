@@ -8,14 +8,14 @@ const ConsumoAPI: React.FC = () => {
         <>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/gerenciamento-estado" backText="Voltar"/>
-            <GoButton goRoute="/estilizacao" goText="Próximo: Estilização!"/>
+            <GoButton goRoute="/estilizacao" goText="Próximo: Estilização"/>
         </div>
         <div className="flex flex-col items-center">
             <Markdown content={consumoAPI} />
         </div>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/gerenciamento-estado" backText="Voltar"/>
-            <GoButton goRoute="/estilizacao" goText="Próximo: Estilização!"/>
+            <GoButton goRoute="/estilizacao" goText="Próximo: Estilização"/>
         </div>
         </>
      );

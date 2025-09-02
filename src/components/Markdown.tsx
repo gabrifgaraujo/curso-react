@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css"; // ou outro tema do highlight.js
 import "../markdown-styles.css";
+import "../markdown-code.css";
 
 interface MarkdownProps {
   content: string;

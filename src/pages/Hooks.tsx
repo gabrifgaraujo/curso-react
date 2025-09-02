@@ -8,14 +8,14 @@ const Hooks: React.FC = () => {
         <>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/fundamentos" backText="Voltar"/>
-            <GoButton goRoute="/roteamento" goText="Próximo: Roteamento!"/>
+            <GoButton goRoute="/roteamento" goText="Próximo: Roteamento"/>
         </div>
         <div className="flex flex-col items-center">
             <Markdown content={hooks} />
         </div>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/fundamentos" backText="Voltar"/>
-            <GoButton goRoute="/roteamento" goText="Próximo: Roteamento!"/>
+            <GoButton goRoute="/roteamento" goText="Próximo: Roteamento"/>
         </div>
         </>
      );

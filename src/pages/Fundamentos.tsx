@@ -8,14 +8,14 @@ const Fund: React.FC = () => {
     <>
       <div className="flex gap-3 mt-15 mb-0">
         <BackButton backRoute="/intro" backText="Voltar"/>
-        <GoButton goRoute="/hooks" goText="Próximo: Hooks!"/>
+        <GoButton goRoute="/hooks" goText="Próximo: Hooks"/>
       </div>
       <div className="flex flex-col items-center">
         <Markdown content={fundamentos} />
       </div>
       <div className="flex gap-3 mt-15 mb-0">
         <BackButton backRoute="/intro" backText="Voltar"/>
-        <GoButton goRoute="/hooks" goText="Próximo: Hooks!"/>
+        <GoButton goRoute="/hooks" goText="Próximo: Hooks"/>
       </div>
     </>
   );

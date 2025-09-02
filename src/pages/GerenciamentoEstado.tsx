@@ -8,14 +8,14 @@ const GerenciamentoEstado: React.FC = () => {
         <>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/roteamento" backText="Voltar"/>
-            <GoButton goRoute="/consumo-api" goText="Próximo: Consumir API!"/>
+            <GoButton goRoute="/consumo-api" goText="Próximo: Consumir API"/>
         </div>
         <div className="flex flex-col items-center">
             <Markdown content={gerencia} />
         </div>
         <div className="flex gap-3 mt-15 mb-0">
             <BackButton backRoute="/roteamento" backText="Voltar"/>
-            <GoButton goRoute="/consumo-api" goText="Próximo: Consumir API!"/>
+            <GoButton goRoute="/consumo-api" goText="Próximo: Consumir API"/>
         </div>
         </>
      );
